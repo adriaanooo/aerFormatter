@@ -22,8 +22,8 @@ reference_velocity = get_input_or_return_default(
     num_response=True
     )
 reference_density = get_input_or_return_default(
-    "Reference density (Default = 1): ",
-    1,
+    "Reference density (Default = 1.2): ",
+    1.2,
     num_response=True
 )
 front_ride_height_min = get_input_or_return_default(
@@ -69,10 +69,10 @@ front_aero_balance = float(input("Front balance: "))
 if front_aero_balance < 0 or front_aero_balance > 1:
     raise ValueError("Invalid aero balance")
 
-downforce = -(1/2)*1.2*coeff_lift*frontal_area*0.278*reference_velocity**2
+downforce = -(1/2)*reference_density*coeff_lift*frontal_area*(reference_velocity/3.6)**2
 front_downforce = downforce * front_aero_balance
 rear_downforce = downforce - front_downforce
-drag = (1/2)*1.2*coeff_drag*frontal_area*0.278*reference_velocity**2
+drag = (1/2)*reference_density*coeff_drag*frontal_area*(reference_velocity/3.6)**2
 
 print(
     f"Front downforce: {front_downforce}N" \
